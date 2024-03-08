@@ -13,9 +13,9 @@ public class Main {
                 "3: Delete a gem by its ID.\n4: Add a gem to the list.\n");
         int f = kb.nextInt();
 
-        int id, inStock;
-        double size, clarity;
-        String name, category;
+        int id, stock;
+        double weight, clarity, weight;
+        String name, type;
 
         switch(f) {
             case 1:
@@ -29,12 +29,14 @@ public class Main {
             case 4:
                 System.out.print("Gem's ID: "); id = kb.nextInt();
                 System.out.print("Gem's Name: "); name = kb.next();
-                System.out.print("Gem's Category: "); category = kb.next();
-                System.out.print("Gem's Size: "); size = kb.nextDouble();
+                System.out.print("Gem's Type: "); type = kb.next();
+                System.out.print("Gem's Weight: "); weight = kb.nextDouble();
+                System.out.print("Gem's Price: "); price = kb.nextDouble();
                 System.out.print("Gem's Clarity: "); clarity = kb.nextDouble();
-                System.out.print("Gems In Stock: "); inStock = kb.nextInt();
-//                Gem gem = new Gem(id, name, category, size, clarity, inStock);
-//                insertGem(); break;
+                System.out.print("Gem's' Stock: "); stock = kb.nextInt();
+                System.out.print("Gem's Colour: "); colour = kb.next();
+//                Gem gem = new Gem(id, name, type, weight, price, clarity, stock, colour);
+//                insertGem(gem); break;
             default:
                 System.out.println("Invalid Input.");
                 break;
