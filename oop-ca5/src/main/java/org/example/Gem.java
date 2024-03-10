@@ -1,15 +1,11 @@
-/**
- * Main author: Kaylon Riordan
- *
- */
-
 package org.example;
+
 public class Gem {
     int id, stock;
-    double weight, price, clarity;
+    double size, price, clarity;
     String name, type, colour;
 
-    public Gem(int id, String name, String type, double weight, double price, double clarity, int stock, String colour) {
+    public Gem(int id, String name, String type, double weight, double price, double clarity, int stock, string colour) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -17,10 +13,7 @@ public class Gem {
         this.price = price;
         this.clarity = clarity;
         this.stock = stock;
-        this.colour = colour;
-    }
-
-    public Gem() {
+        this.color = colour;
     }
 
     public int getId() {return id;}
@@ -43,7 +36,7 @@ public class Gem {
 
     @Override
     public String toString() {
-        return "Gem{ " +
+        return "Gem{" +
                 "id=" + id +
                 ", stock=" + stock +
                 ", weight=" + weight +
