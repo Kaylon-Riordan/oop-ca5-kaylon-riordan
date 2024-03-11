@@ -1,11 +1,16 @@
 package org.example;
 
+/**
+ * Author: Kaylon Riordan
+ * Refactored by Anastasia McCormac
+ * Base entity class.
+ */
 public class Gem {
-    int id, stock;
-    double size, price, clarity;
-    String name, type, colour;
+    private int id, stock;
+    private double weight, price, clarity;
+    private String name, type, colour;
 
-    public Gem(int id, String name, String type, double weight, double price, double clarity, int stock, string colour) {
+    public Gem(int id, String name, String type, double weight, double price, double clarity, int stock, String colour) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -13,7 +18,10 @@ public class Gem {
         this.price = price;
         this.clarity = clarity;
         this.stock = stock;
-        this.color = colour;
+        this.colour = colour;
+    }
+
+    public Gem() {
     }
 
     public int getId() {return id;}
@@ -28,15 +36,15 @@ public class Gem {
     public void setId(int id) {this.id = id;}
     public void setStock(int stock) {this.stock = stock;}
     public void setWeight(double weight) {this.weight = weight;}
-    public void setPrice(double price) {this.weight = price;}
+    public void setPrice(double price) {this.price = price;}
     public void setClarity(double clarity) {this.clarity = clarity;}
     public void setName(String name) {this.name = name;}
     public void setType(String type) {this.type = type;}
-    public void setColour(String colour) {this.type = colour;}
+    public void setColour(String colour) {this.colour = colour;}
 
     @Override
     public String toString() {
-        return "Gem{" +
+        return "Gem{ " +
                 "id=" + id +
                 ", stock=" + stock +
                 ", weight=" + weight +
