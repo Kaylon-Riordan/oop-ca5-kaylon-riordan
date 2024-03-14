@@ -57,8 +57,7 @@ public class App {
                 "2: Get a gem by its ID.\n" +
                 "3: Delete a gem by its ID.\n" +
                 "4: Add a gem to the list.\n" +
-                "0: Exit application.\n"
-        );
+                "0: Exit application.\n" );
 
         input = kb.nextInt();
         int id;
@@ -245,10 +244,9 @@ public class App {
     //      e.g. Player updatePlayer(int id, Player p) – executes specified updates.
 
     /**
-     * Author: Ben McKeever
-     * <p>
-     *     Method to update an existing gem in the database.
-     * </p>
+     * Author: Kaylon Riordan
+     *
+     * Method to update an existing gem in the database.
      *
      * @param kb Keyboard scanner input
      * @return returns the gem after it has been updated.
@@ -256,7 +254,55 @@ public class App {
     private Gem updateGem(Scanner kb) {
 
         // Method here to get an existing gem by ID (use getGemByID();)
-        // and adjust properties and feedback to dao.updateGem();.
+
+        System.out.println("ID of gem you want to change: ");
+        int id = kb.nextInt();
+        Gem gem = dao.getGemByID(id);
+
+        int in = 1;
+        while(in != 0) {
+            System.out.print("1: Change Name.\n" +
+                    "2: Change Type.\n" +
+                    "3: Change Weight.\n" +
+                    "4: Change Clarity.\n" +
+                    "5: Change Price.\n" +
+                    "6: Change Stock.\n" +
+                    "7: Change Colour.\n" +
+                    "0: Finish.\n");
+            in = kb.nextInt();
+
+            switch(in) {
+                case 1:
+                    System.out.println("Change " + gem.getName() + " to: ");
+                    gem.setName(kb.next());
+                case 2:
+                    System.out.println("Change " + gem.getType() + " to: ");
+                    gem.setType(kb.next());
+                case 3:
+                    System.out.println("Change " + gem.getWeight() + " to: ");
+                    gem.setWeight(kb.nextDouble());
+                case 4:
+                    System.out.println("Change " + gem.getClarity() + " to: ");
+                    gem.setClarity(kb.nextDouble());
+                case 5:
+                    System.out.println("Change " + gem.getPrice() + " to: ");
+                    gem.setPrice(kb.nextDouble());
+                case 6:
+                    System.out.println("Change " + gem.getStock() + " to: ");
+                    gem.setStock(kb.nextInt());
+                case 7:
+                    System.out.println("Change " + gem.getColour() + " to: ");
+                    gem.setColour(kb.next());
+                case 0:
+                    System.out.println("Updating gem at ID " + id);
+                default:
+                    System.out.println("Invalid input");
+            }
+        }
+
+        // and adjust properties and feedback to dao.updateGem();
+
+
 
         return null;
     }
@@ -265,10 +311,9 @@ public class App {
     // TODO Feature 6 – Get list of entities matching a filter (based on DTO object)
     //      e.g. findPlayersUsingFilter( playerAgeComparator )
     /**
-     * Author: Kaylon Riordan
-     * <p>
-     *     Method to select a filter and return a list of matching gems.
-     * </p>
+     * Author: Ben McKeever
+     *
+     * Method to select a filter and return a list of matching gems.
      *
      * @param kb - Keyboard scanner input.
      * @return Arraylist of gems.

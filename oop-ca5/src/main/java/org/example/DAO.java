@@ -126,17 +126,6 @@ public class DAO {
 
                     // Create new instance of gem to add to return list.
                     Gem newGem = new Gem();
-                    //System.out.println(newGem.toString());
-                    /*
-                    System.out.println(results.getInt("ID"));
-                    System.out.println(results.getString("Name"));
-                    System.out.println(results.getString("Type"));
-                    System.out.println(results.getDouble("Weight"));
-                    System.out.println(results.getDouble("Clarity"));
-                    System.out.println(results.getDouble("Price"));
-                    System.out.println(results.getInt("Stock"));
-                    System.out.println(results.getString("Colour"));
-                    */
 
                     // Parse corresponding fields from the results set.
                     newGem.setId(results.getInt("ID"));
@@ -282,18 +271,46 @@ public class DAO {
     }
 
     // TODO Feature 5 – Update an existing Entity by ID
-    //      e.g. Player updatePlayer(int id, Player p) – executes specified updates.
+    // e.g. Player updatePlayer(int id, Player p) – executes specified updates.
     /**
-     * Author: Ben McKeever
-     * <p>
-     *      Method to update a database entry.
-     * </p>
+     * Author: Kaylon Riordan
+     * Method to update a database entry.
+     *
      */
     public Gem updateGem(int id, Gem gem) {
 
+        int rowsAffected = 0;
+        Connection connection = this.getConnection();
+
         // use new gem object to update members for the given ID.
 
+        try {
+            String query = "SET Name = " + gem.getName() + " WHERE Id = " + id +
+                        "AND SET Type = " + gem.getType() + " WHERE Id = " + id +
+                        "AND SET Weight = " + gem.getWeight() + " WHERE Id = " + id +
+                        "AND SET Clarity = " + gem.getClarity() + " WHERE Id = " + id +
+                        "AND SET Price = " + gem.getPrice() + " WHERE Id = " + id +
+                        "AND SET Stock = " + gem.getStock() + " WHERE Id = " + id +
+                        "AND SET Colour = " + gem.getColour() + " WHERE Id = " + id;
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            rowsAffected = preparedStatement.executeUpdate();
+        }
 
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return getGemByID(id);
+    }
+
+    // TODO Feature 6 – Get list of entities matching a filter
+    // e.g. findPlayersUsingFilter( playerAgeComparator )
+    /**
+     * Author: Ben McKeever
+     * Method to Get list of entities matching a filter.
+     *
+     */
+    public Gem findGemUsingFilter() {
 
         return null;
     }
