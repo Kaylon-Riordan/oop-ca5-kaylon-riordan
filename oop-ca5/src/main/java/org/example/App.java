@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -119,6 +120,16 @@ public class App {
                 displayGem(addGem(kb));
                 return 4;
 
+            case 5: // Update gem case.
+
+                displayGem(updateGem(kb));
+                return 5;
+
+            case 6: // Filter Gems case.
+
+                displayGem(filterGem(kb));
+                return 6;
+
             case 0: // Exit case.
 
                 System.out.println("\n\nGoodbye.");
@@ -196,7 +207,7 @@ public class App {
     // Method and overload to display a single Gem in detail, or a list of gems as a table.
     protected void displayGem(Gem gem) {
 
-        // TODO display a single gem in detail.
+        // display a single gem in detail.
         System.out.printf("%10s | %-15d ", "ID:", gem.getId());
         System.out.printf("%10s | %-15s ", "Name:", gem.getName());
         System.out.printf("%10s | %-15s ", "Type:", gem.getType());
@@ -216,7 +227,7 @@ public class App {
      * @param gemList ArrayList of gems to display.
      */
     protected void displayGem(ArrayList<Gem> gemList) {
-        // TODO Display list of gems as a table.
+        // Display list of gems as a table.
         Iterator<Gem> iter = gemList.iterator();
         System.out.printf("\n| %-4s | %-15s | %-6s | %-6s | %-15s |\n",
                 "ID", "Name", "Price", "Stock", "Colour");
@@ -228,5 +239,47 @@ public class App {
             System.out.printf("| %-4d | %-15s | %-6.2f | %-6d | %-15s |\n",
                     gem.getId(), gem.getName(), gem.getPrice(), gem.getStock(), gem.getColour());
         }
+    }
+
+    // TODO Feature 5 – Update an existing Entity by ID
+    //      e.g. Player updatePlayer(int id, Player p) – executes specified updates.
+
+    /**
+     * Author: Ben McKeever
+     * <p>
+     *     Method to update an existing gem in the database.
+     * </p>
+     *
+     * @param kb Keyboard scanner input
+     * @return returns the gem after it has been updated.
+     */
+    private Gem updateGem(Scanner kb) {
+
+        // Method here to get an existing gem by ID (use getGemByID();)
+        // and adjust properties and feedback to dao.updateGem();.
+
+        return null;
+    }
+
+
+    // TODO Feature 6 – Get list of entities matching a filter (based on DTO object)
+    //      e.g. findPlayersUsingFilter( playerAgeComparator )
+    /**
+     * Author: Kaylon Riordan
+     * <p>
+     *     Method to select a filter and return a list of matching gems.
+     * </p>
+     *
+     * @param kb - Keyboard scanner input.
+     * @return Arraylist of gems.
+     */
+    protected ArrayList<Gem> filterGem(Scanner kb) {
+
+        ArrayList<Gem> gemList = dao.getAllGems();
+
+        // Use full list from dao.getAllGems(); and then filter the list here
+        // using a comparator, recommend preset lambda functions.
+
+        return gemList;
     }
 }

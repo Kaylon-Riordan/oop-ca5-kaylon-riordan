@@ -2,6 +2,8 @@ package org.example;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * General function Author: Anastasia McCormac
@@ -163,8 +165,8 @@ public class DAO {
         return gemList;
     }
 
-    // TODO Feature 2 – Find and Display (a single) Entity by Key
-    //      e.g. getPlayerById(id ) – return a single entity (DTO) and display its contents.
+    // Feature 2 – Find and Display (a single) Entity by Key
+    // e.g. getPlayerById(id ) – return a single entity (DTO) and display its contents.
 
     /**
      * Author: Ben McKeever
@@ -200,8 +202,8 @@ public class DAO {
         return gemByID;
     }
 
-    // TODO Feature 3 – Delete an Entity by key
-    //      e.g. deletePlayerById(id) – remove specified entity from database
+    // Feature 3 – Delete an Entity by key
+    // e.g. deletePlayerById(id) – remove specified entity from database
 
     /**
      * Author: Kaylon Riordan
@@ -230,10 +232,10 @@ public class DAO {
         return rowsAffected;
     }
 
-    // TODO Feature 4 – Insert an Entity
-    //      (gather data, instantiate a Player object, pass into DAO method for insertion in DB)
-    //      e.g. Player insertPlayer(Player p)
-    //      return new entity (Player DTO) that includes the assigned auto-id.
+    // Feature 4 – Insert an Entity
+    // (gather data, instantiate a Player object, pass into DAO method for insertion in DB)
+    // e.g. Player insertPlayer(Player p)
+    // return new entity (Player DTO) that includes the assigned auto-id.
     /**
      * Author: Anastasia McCormac
      * Tries to add a gem to the database.
@@ -277,6 +279,23 @@ public class DAO {
         }
 
         return rowsAffected;
+    }
+
+    // TODO Feature 5 – Update an existing Entity by ID
+    //      e.g. Player updatePlayer(int id, Player p) – executes specified updates.
+    /**
+     * Author: Ben McKeever
+     * <p>
+     *      Method to update a database entry.
+     * </p>
+     */
+    public Gem updateGem(int id, Gem gem) {
+
+        // use new gem object to update members for the given ID.
+
+
+
+        return null;
     }
 
     /**
