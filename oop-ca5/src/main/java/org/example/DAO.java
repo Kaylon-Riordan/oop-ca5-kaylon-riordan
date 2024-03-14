@@ -270,7 +270,7 @@ public class DAO {
         return rowsAffected;
     }
 
-    // TODO Feature 5 – Update an existing Entity by ID
+    // Feature 5 – Update an existing Entity by ID
     // e.g. Player updatePlayer(int id, Player p) – executes specified updates.
     /**
      * Author: Kaylon Riordan
@@ -285,15 +285,21 @@ public class DAO {
         // use new gem object to update members for the given ID.
 
         try {
-            String query = "SET Name = " + gem.getName() + " WHERE Id = " + id +
-                        "AND SET Type = " + gem.getType() + " WHERE Id = " + id +
-                        "AND SET Weight = " + gem.getWeight() + " WHERE Id = " + id +
-                        "AND SET Clarity = " + gem.getClarity() + " WHERE Id = " + id +
-                        "AND SET Price = " + gem.getPrice() + " WHERE Id = " + id +
-                        "AND SET Stock = " + gem.getStock() + " WHERE Id = " + id +
-                        "AND SET Colour = " + gem.getColour() + " WHERE Id = " + id;
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            rowsAffected = preparedStatement.executeUpdate();
+            String query = "UPDATE gemstones SET Name = ? " +
+                        ", Type = ? " + ", Weight = ? " +
+                        ", Clarity = ? " + ", Price = ? " +
+                        ", Stock = ? " + ", Colour = ? " + " WHERE ID = " + id;
+            PreparedStatement stmt = connection.prepareStatement(query);
+
+            stmt.setString(1, gem.getName());
+            stmt.setString(2, gem.getType());
+            stmt.setDouble(3, gem.getWeight());
+            stmt.setDouble(4, gem.getClarity());
+            stmt.setDouble(5, gem.getPrice());
+            stmt.setInt(6, gem.getStock());
+            stmt.setString(7, gem.getColour());
+
+            stmt.executeUpdate();
         }
 
         catch (SQLException e) {

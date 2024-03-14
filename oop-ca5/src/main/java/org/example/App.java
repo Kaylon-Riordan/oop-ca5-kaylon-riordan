@@ -57,6 +57,8 @@ public class App {
                 "2: Get a gem by its ID.\n" +
                 "3: Delete a gem by its ID.\n" +
                 "4: Add a gem to the list.\n" +
+                "5: Update a gem in the list.\n" +
+                "6: display gems using a filter.\n" +
                 "0: Exit application.\n" );
 
         input = kb.nextInt();
@@ -121,12 +123,11 @@ public class App {
 
             case 5: // Update gem case.
 
-                displayGem(updateGem(kb));
+                updateGem(kb);
                 return 5;
 
             case 6: // Filter Gems case.
 
-                displayGem(filterGem(kb));
                 return 6;
 
             case 0: // Exit case.
@@ -240,8 +241,8 @@ public class App {
         }
     }
 
-    // TODO Feature 5 – Update an existing Entity by ID
-    //      e.g. Player updatePlayer(int id, Player p) – executes specified updates.
+    // Feature 5 – Update an existing Entity by ID
+    // e.g. Player updatePlayer(int id, Player p) – executes specified updates.
 
     /**
      * Author: Kaylon Riordan
@@ -261,7 +262,7 @@ public class App {
 
         int in = 1;
         while(in != 0) {
-            System.out.print("1: Change Name.\n" +
+            System.out.print("\n1: Change Name.\n" +
                     "2: Change Type.\n" +
                     "3: Change Weight.\n" +
                     "4: Change Clarity.\n" +
@@ -274,35 +275,35 @@ public class App {
             switch(in) {
                 case 1:
                     System.out.println("Change " + gem.getName() + " to: ");
-                    gem.setName(kb.next());
+                    gem.setName(kb.next()); break;
                 case 2:
                     System.out.println("Change " + gem.getType() + " to: ");
-                    gem.setType(kb.next());
+                    gem.setType(kb.next()); break;
                 case 3:
                     System.out.println("Change " + gem.getWeight() + " to: ");
-                    gem.setWeight(kb.nextDouble());
+                    gem.setWeight(kb.nextDouble()); break;
                 case 4:
                     System.out.println("Change " + gem.getClarity() + " to: ");
-                    gem.setClarity(kb.nextDouble());
+                    gem.setClarity(kb.nextDouble()); break;
                 case 5:
                     System.out.println("Change " + gem.getPrice() + " to: ");
-                    gem.setPrice(kb.nextDouble());
+                    gem.setPrice(kb.nextDouble()); break;
                 case 6:
                     System.out.println("Change " + gem.getStock() + " to: ");
-                    gem.setStock(kb.nextInt());
+                    gem.setStock(kb.nextInt()); break;
                 case 7:
                     System.out.println("Change " + gem.getColour() + " to: ");
-                    gem.setColour(kb.next());
+                    gem.setColour(kb.next()); break;
                 case 0:
-                    System.out.println("Updating gem at ID " + id);
+                    System.out.println("Updating gem at ID " + id + "\n");  break;
                 default:
-                    System.out.println("Invalid input");
+                    System.out.println("Invalid input");  break;
             }
         }
 
         // and adjust properties and feedback to dao.updateGem();
 
-
+        dao.updateGem(id, gem);
 
         return null;
     }
