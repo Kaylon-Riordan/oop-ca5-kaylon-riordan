@@ -279,7 +279,6 @@ public class DAO {
      */
     public Gem updateGem(int id, Gem gem) {
 
-        int rowsAffected = 0;
         Connection connection = this.getConnection();
 
         // use new gem object to update members for the given ID.
@@ -289,6 +288,7 @@ public class DAO {
                         ", Type = ? " + ", Weight = ? " +
                         ", Clarity = ? " + ", Price = ? " +
                         ", Stock = ? " + ", Colour = ? " + " WHERE ID = " + id;
+
             PreparedStatement stmt = connection.prepareStatement(query);
 
             stmt.setString(1, gem.getName());
@@ -307,18 +307,6 @@ public class DAO {
         }
 
         return getGemByID(id);
-    }
-
-    // TODO Feature 6 – Get list of entities matching a filter
-    // e.g. findPlayersUsingFilter( playerAgeComparator )
-    /**
-     * Author: Ben McKeever
-     * Method to Get list of entities matching a filter.
-     *
-     */
-    public Gem findGemUsingFilter() {
-
-        return null;
     }
 
     /**

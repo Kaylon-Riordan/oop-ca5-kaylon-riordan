@@ -303,7 +303,7 @@ public class App {
 
         // and adjust properties and feedback to dao.updateGem();
 
-        dao.updateGem(id, gem);
+        System.out.println(dao.updateGem(id, gem));
 
         return null;
     }
