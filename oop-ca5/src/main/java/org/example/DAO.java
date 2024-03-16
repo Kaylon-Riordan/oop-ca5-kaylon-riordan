@@ -137,9 +137,6 @@ public class DAO {
                     newGem.setStock(results.getInt("Stock"));
                     newGem.setColour(results.getString("Colour"));
 
-
-                    System.out.println("\n" + newGem.toString());
-
                     // Add the new gem to the return list
                     gemList.add(newGem);
                 }
@@ -170,26 +167,23 @@ public class DAO {
 
         Connection conn = this.getConnection();
         Gem gemByID = null;
-
-        // Prepared statement to find a gem and if found return the gem as an object.
         if (conn != null) {
             try {
-
                 String query = "SELECT * FROM `Gemstones` WHERE ID = ?";
-
                 PreparedStatement stmt = conn.prepareStatement(query);
                 stmt.setInt(1, id);
                 ResultSet rs = stmt.executeQuery();
-                gemByID = gemFromResultSet(rs);
-
+                if (rs.next()) {
+                    gemByID = gemFromResultSet(rs);
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-
         // Return the gem you find.
         return gemByID;
     }
+
 
     // Feature 3 – Delete an Entity by key
     // e.g. deletePlayerById(id) – remove specified entity from database
@@ -309,25 +303,46 @@ public class DAO {
         return getGemByID(id);
     }
 
+    // Feature 6
+    // e.g. findPlayersUsingFilter( playerAgeComparator )
+    /**
+     * Author: Ben McKeever
+     * Method to Get list of entities matching a filter.
+     *
+     */
+    public ArrayList<Gem> findGemsUsingFilter(Comparator<Gem> filter, Gem filterGem) {
+        ArrayList<Gem> gemList = new ArrayList<>();
+
+        for (Gem gem : getAllGems()) {
+            if (filter.compare(gem, filterGem) > 0) {
+                gemList.add(gem);
+            }
+        }
+
+        return gemList;
+    }
+
     /**
      * Author: Ben McKeever
      *
      */
-    public Gem gemFromResultSet(ResultSet rs) throws SQLException {
+    public Gem gemFromResultSet(ResultSet rs) {
         Gem newGem = null;
 
-        if (rs.next()) {
+        try{
             // Create new instance of gem to add to return list.
             newGem = new Gem(
                     rs.getInt("ID"),
                     rs.getString("Name"),
                     rs.getString("Type"),
                     rs.getDouble("Weight"),
-                    rs.getDouble("Clarity"),
                     rs.getDouble("Price"),
+                    rs.getDouble("Clarity"),
                     rs.getInt("Stock"),
                     rs.getString("Colour")
             );
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         return newGem;

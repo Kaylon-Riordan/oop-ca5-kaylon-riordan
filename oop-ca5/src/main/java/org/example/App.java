@@ -53,7 +53,7 @@ public class App {
 
         int input;
 
-        System.out.print("1: Get a list of all gems.\n" +
+        System.out.print("\n1: Get a list of all gems.\n" +
                 "2: Get a gem by its ID.\n" +
                 "3: Delete a gem by its ID.\n" +
                 "4: Add a gem to the list.\n" +
@@ -127,7 +127,7 @@ public class App {
                 return 5;
 
             case 6: // Filter Gems case.
-
+                filterGem(kb);
                 return 6;
 
             case 0: // Exit case.
@@ -184,8 +184,7 @@ public class App {
 
             System.out.println("\nGem added successfully");
 
-            // Recreate the gem with its auto-generated ID and return to calling method.
-            return dao.getGemByID(newGem.getId());
+            return newGem;
         }
 
         // Gem was not found return null.
@@ -303,14 +302,14 @@ public class App {
 
         // and adjust properties and feedback to dao.updateGem();
 
-        System.out.println(dao.updateGem(id, gem));
+        displayGem(dao.updateGem(id, gem));
 
         return null;
     }
 
 
-    // TODO Feature 6 – Get list of entities matching a filter (based on DTO object)
-    //      e.g. findPlayersUsingFilter( playerAgeComparator )
+    // Feature 6 – Get list of entities matching a filter (based on DTO object)
+    // e.g. findPlayersUsingFilter( playerAgeComparator )
     /**
      * Author: Ben McKeever
      *
@@ -321,10 +320,16 @@ public class App {
      */
     protected ArrayList<Gem> filterGem(Scanner kb) {
 
-        ArrayList<Gem> gemList = dao.getAllGems();
+        ArrayList<Gem> gemList;
+        Comparator<Gem> filter;
+        Gem filterGem = new Gem();
 
-        // Use full list from dao.getAllGems(); and then filter the list here
-        // using a comparator, recommend preset lambda functions.
+        filter = Comparator.comparing(Gem::getClarity);
+
+        System.out.print("Input minimum clarity: ");
+        filterGem.setClarity(kb.nextDouble());
+
+        gemList = dao.findGemsUsingFilter(filter, filterGem);
 
         return gemList;
     }
