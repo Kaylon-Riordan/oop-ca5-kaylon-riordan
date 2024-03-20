@@ -3,7 +3,6 @@ package org.example;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 /**
  * General function Author: Anastasia McCormac
