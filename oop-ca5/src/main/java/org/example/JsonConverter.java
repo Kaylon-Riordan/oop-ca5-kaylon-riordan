@@ -11,7 +11,18 @@ public class JsonConverter {
      * Method to convert gem list to json string.
      *
      */
-    public static String convertListToJsonString(List<Gem> list) {
+    public static String listToJsonString(List<Gem> list) {
         return new Gson().toJson(list);
+    }
+
+    // Feature 8 – Convert a single Entity by Key as a JSON String
+    //`e.g. String playerToJson( Player p )
+    /**
+     * Author: Ben Mc Keever
+     * Method to convert gem to json string.
+     *
+     */
+    public static String gemToJsonString(Gem g) {
+        return new Gson().toJson(g);
     }
 }

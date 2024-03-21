@@ -60,6 +60,7 @@ public class App {
                 "5: Update a gem in the list.\n" +
                 "6: Display gems using a filter.\n" +
                 "7: Return list of gems as a Json string.\n" +
+                "8: Return gem by ID as a Json string.\n" +
                 "0: Exit application.\n" );
 
         input = kb.nextInt();
@@ -131,9 +132,16 @@ public class App {
                 filterGem(kb);
                 return 6;
 
-            case 7: // Filter Gems case.
-                System.out.println(JsonConverter.convertListToJsonString(dao.getAllGems()));
+            case 7:
+                System.out.println(JsonConverter.listToJsonString(dao.getAllGems()));
                 return 7;
+
+            case 8:
+                System.out.print("Enter ID:\n");
+                id = kb.nextInt();
+
+                System.out.println(JsonConverter.gemToJsonString(dao.getGemByID(id)));
+                return 8;
 
             case 0: // Exit case.
 

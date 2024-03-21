@@ -1,6 +1,6 @@
 -- Name, Type, Weight sourced from https://www.gemdat.org/
 -- Generated from a CSV file using https://www.convertcsv.com/csv-to-sql.htm
-DROP DATABASE IF EXISTS OOP_CA5;
+DROP DATABASE IF EXISTS OOP_CA5_ABK;
 CREATE DATABASE OOP_CA5_ABK;
 
 USE OOP_CA5_ABK;
