@@ -1,21 +1,23 @@
 package org.example;
-
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DAOTest {
 
     @Test
-    public void login() {
-    }
-
-    @Test
+    @Order(1)
     public void getAllGems() {
         DAO dao =  new DAO();
 
         ArrayList<Gem> expected = new ArrayList<>();
+
         expected.add(new Gem(1,"Amythest","Quartz",13.21,5,0.3,10,"Purple"));
         expected.add(new Gem(2,"Beryl","Aquamarine",7.34,4,0.5,8,"Blue"));
         expected.add(new Gem(3,"Sapphire","Corundum",5.57,3,0.2,14,"Blue"));
@@ -45,11 +47,13 @@ public class DAOTest {
     }
 
     @Test
+    @Order(2)
     public void getGemByIDValid() {
         DAO dao =  new DAO();
 
         Gem expected = new Gem(5, "Fluorite", "Blue John", 35.22, 8, 0.7, 17, "White");
         Gem actual = dao.getGemByID(5);
+
         Assert.assertEquals(expected.getId(), actual.getId());
         Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getType(), actual.getType());
@@ -61,6 +65,7 @@ public class DAOTest {
     }
 
     @Test
+    @Order(3)
     public void getGemByIDInvalid() {
         DAO dao =  new DAO();
 
@@ -69,22 +74,94 @@ public class DAOTest {
     }
 
     @Test
-    public void deleteGemByID() {
+    @Order(4)
+    public void deleteGemByIDValid() {
+        DAO dao =  new DAO();
+
+        int expected = 1;
+        int actual = dao.deleteGemByID(10);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
+    @Order(5)
+    public void deleteGemByIDInvalid() {
+        DAO dao =  new DAO();
+
+        int expected = 0;
+        int actual = dao.deleteGemByID(100);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(6)
     public void insertGem() {
+        DAO dao =  new DAO();
+        Gem gem = new Gem(11,"Kryptonite","SpaceRock?",14.62,12,0.45,1,"Green");
+
+        int expected = 1;
+        int actual = dao.insertGem(gem);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
+    @Order(7)
     public void updateGem() {
+        DAO dao =  new DAO();
+
+        Gem expected = new Gem(1,"Amythest","Quartz",13.21,15,0.3,3,"Purple");
+        Gem actual = dao.updateGem(1, expected);
+
+        Assert.assertEquals(expected.getId(), actual.getId());
+        Assert.assertEquals(expected.getName(), actual.getName());
+        Assert.assertEquals(expected.getType(), actual.getType());
+        Assert.assertEquals(expected.getWeight(), actual.getWeight(), 0.0000001);
+        Assert.assertEquals(expected.getPrice(), actual.getPrice(), 0.0000001);
+        Assert.assertEquals(expected.getClarity(), actual.getClarity(), 0.0000001);
+        Assert.assertEquals(expected.getStock(), actual.getStock());
+        Assert.assertEquals(expected.getColour(), actual.getColour());
     }
 
     @Test
-    public void findGemsUsingFilter() {
+    @Order(8)
+    public void findGemsUsingFilterValid() {
+        DAO dao =  new DAO();
+
+        ArrayList<Gem> expected = new ArrayList<>();
+        expected.add(new Gem(2,"Beryl","Aquamarine",7.34,4,0.5,8,"Blue"));
+        expected.add(new Gem(5,"Fluorite","Blue John",35.22,8,0.7,17,"White"));
+        expected.add(new Gem(9,"Star Saphire","Corundum",16.17,4,0.8,13,"Purple"));
+
+        Gem filterGem = new Gem();
+        filterGem.setClarity(0.5);
+
+        ArrayList<Gem> actual = dao.findGemsUsingFilter(Comparator.comparing(Gem::getClarity), filterGem);
+
+        Assert.assertEquals(expected.size(), actual.size());
+        if(expected.size() == actual.size()){
+            for(int i = 0; i < expected.size(); i++){
+                Assert.assertEquals(expected.get(i).getId(), actual.get(i).getId());
+                Assert.assertEquals(expected.get(i).getName(), actual.get(i).getName());
+                Assert.assertEquals(expected.get(i).getType(), actual.get(i).getType());
+                Assert.assertEquals(expected.get(i).getWeight(), actual.get(i).getWeight(), 0.0000001);
+                Assert.assertEquals(expected.get(i).getPrice(), actual.get(i).getPrice(), 0.0000001);
+                Assert.assertEquals(expected.get(i).getClarity(), actual.get(i).getClarity(), 0.0000001);
+                Assert.assertEquals(expected.get(i).getStock(), actual.get(i).getStock());
+                Assert.assertEquals(expected.get(i).getColour(), actual.get(i).getColour());
+            }
+        }
     }
 
     @Test
-    public void gemFromResultSet() {
+    @Order(9)
+    public void findGemsUsingFilterInvalid() {
+        DAO dao =  new DAO();
+
+        Gem filterGem = new Gem();
+        filterGem.setClarity(0.9);
+
+        ArrayList<Gem> actual = dao.findGemsUsingFilter(Comparator.comparing(Gem::getClarity), filterGem);
+
+        Assert.assertEquals(actual.size(), 0);
     }
 }

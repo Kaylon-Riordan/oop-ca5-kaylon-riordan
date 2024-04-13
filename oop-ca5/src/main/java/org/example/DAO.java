@@ -259,7 +259,7 @@ public class DAO {
                 throw new RuntimeException(e);
             }
         }
-
+        System.out.println(rowsAffected);
         return rowsAffected;
     }
 
@@ -313,7 +313,7 @@ public class DAO {
         ArrayList<Gem> gemList = new ArrayList<>();
 
         for (Gem gem : getAllGems()) {
-            if (filter.compare(gem, filterGem) > 0) {
+            if (filter.compare(gem, filterGem) >= 0) {
                 gemList.add(gem);
             }
         }
