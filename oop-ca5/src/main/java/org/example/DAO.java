@@ -20,7 +20,7 @@ public class DAO {
     private String password = "";
 
     private static DAO instance;
-    private DAO () {
+    public DAO() {
 
     }
 
