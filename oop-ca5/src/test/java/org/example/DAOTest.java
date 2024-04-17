@@ -11,6 +11,11 @@ import java.util.Comparator;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DAOTest {
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the method accurately returns the original list of gems before changes
+     *
+     */
     @Test
     @Order(1)
     public void getAllGems() {
@@ -46,6 +51,11 @@ public class DAOTest {
         }
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the method accurately returns gem 5
+     *
+     */
     @Test
     @Order(2)
     public void getGemByIDValid() {
@@ -64,6 +74,11 @@ public class DAOTest {
         Assert.assertEquals(expected.getColour(), actual.getColour());
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the method doesn't return anything when given an invalid input
+     *
+     */
     @Test
     @Order(3)
     public void getGemByIDInvalid() {
@@ -73,6 +88,11 @@ public class DAOTest {
         Assert.assertNull(actual);
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the delete method affects 1 row in the table
+     *
+     */
     @Test
     @Order(4)
     public void deleteGemByIDValid() {
@@ -83,6 +103,11 @@ public class DAOTest {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the delete method doesn't affect any rows in the table when given an invalid ID
+     *
+     */
     @Test
     @Order(5)
     public void deleteGemByIDInvalid() {
@@ -93,6 +118,11 @@ public class DAOTest {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the insert method affects 1 row in the table
+     *
+     */
     @Test
     @Order(6)
     public void insertGem() {
@@ -104,6 +134,11 @@ public class DAOTest {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the update method returns the same gem its inputted, showing it was successfully updated
+     *
+     */
     @Test
     @Order(7)
     public void updateGem() {
@@ -122,6 +157,11 @@ public class DAOTest {
         Assert.assertEquals(expected.getColour(), actual.getColour());
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that filter returns the correct list of gems
+     *
+     */
     @Test
     @Order(8)
     public void findGemsUsingFilterValid() {
@@ -152,6 +192,11 @@ public class DAOTest {
         }
     }
 
+    /**
+     * Author: Kaylon Riordan
+     * Test that the filter returns nothing when the input is too high
+     *
+     */
     @Test
     @Order(9)
     public void findGemsUsingFilterInvalid() {

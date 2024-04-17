@@ -1,5 +1,7 @@
 package org.example;
 
+// This instance of main is the original implementation prior to client-server development.
+
 /**
  * OOP CA5 Group project:
  * Anastasia McCormac
@@ -15,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /**
+        /*
          * Please see attached db.sql for matching database content.
          */
 

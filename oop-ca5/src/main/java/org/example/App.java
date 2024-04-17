@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Scanner;
 
+// This instance of main is the original implementation prior to client-server development.
 /**
  * Author: Anastasia McCormac
  * Main app class

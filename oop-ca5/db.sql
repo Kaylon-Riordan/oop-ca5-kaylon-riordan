@@ -15,6 +15,7 @@ CREATE TABLE Gemstones(
                           Stock   INTEGER  NOT NULL,
                           Colour  VARCHAR(15) NOT NULL
 );
+DROP TABLE IF EXISTS Users;
 CREATE TABLE Users(
                       UID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
                       Forename VARCHAR(20) NOT NULL,
@@ -55,6 +56,8 @@ VALUES ('Ben', 'McKeever', 'McKeeverB', 'abcd1234', 1);
 INSERT INTO Users(Forename, LastName, Username, Password, IsAdmin)
 VALUES ('Kaylon', 'Riordan', 'RiordanK', 'abcd1234', 1);
 INSERT INTO Users(Forename, LastName, Username, Password, IsAdmin)
+VALUES ('Connor', 'Kelly-Anne', 'ConnorK', 'abcd1234', 0);
+INSERT INTO Users(Forename, LastName, Username, Password, IsAdmin)
 VALUES ('Cane', 'Racheal', 'CaneR', 'abcd1234', 0);
 INSERT INTO Users(Forename, LastName, Username, Password, IsAdmin)
-VALUES ('Connor', 'Kelly-Anne', 'ConnorK', 'abcd1234', 0);
+VALUES ('Test', 'Account', 'Admin', 'pass1', 1);
