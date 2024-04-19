@@ -134,7 +134,7 @@ public class App {
                 return 6;
 
             case 7:
-                System.out.println(JsonConverter.listToJsonString(dao.getAllGems()));
+                System.out.println(JsonConverter.convertListToJsonString(dao.getAllGems()));
                 return 7;
 
             case 8:

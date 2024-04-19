@@ -34,7 +34,9 @@ public class JsonConverter {
      * Convert json string to gem.
      *
      */
-    public static Gem jsonStringToGem(String s) { return new Gson().fromJson(s, Gem.class); };
+    public static Gem jsonStringToGem(String s) {
+        return new Gson().fromJson(s, Gem.class);
+    }
 
     public static List<Gem> jsonStringtoList(String s) {
         // https://stackoverflow.com/questions/18544133/parsing-json-array-into-java-util-list-with-gson

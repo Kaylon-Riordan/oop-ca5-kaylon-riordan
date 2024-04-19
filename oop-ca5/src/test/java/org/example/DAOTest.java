@@ -42,9 +42,9 @@ public class DAOTest {
                 Assert.assertEquals(expected.get(i).getId(), actual.get(i).getId());
                 Assert.assertEquals(expected.get(i).getName(), actual.get(i).getName());
                 Assert.assertEquals(expected.get(i).getType(), actual.get(i).getType());
-                Assert.assertEquals(expected.get(i).getWeight(), actual.get(i).getWeight(), 0.0000001);
-                Assert.assertEquals(expected.get(i).getPrice(), actual.get(i).getPrice(), 0.0000001);
-                Assert.assertEquals(expected.get(i).getClarity(), actual.get(i).getClarity(), 0.0000001);
+                Assert.assertEquals(expected.get(i).getWeight(), actual.get(i).getWeight(), 0);
+                Assert.assertEquals(expected.get(i).getPrice(), actual.get(i).getPrice(), 0);
+                Assert.assertEquals(expected.get(i).getClarity(), actual.get(i).getClarity(), 0);
                 Assert.assertEquals(expected.get(i).getStock(), actual.get(i).getStock());
                 Assert.assertEquals(expected.get(i).getColour(), actual.get(i).getColour());
             }
@@ -67,9 +67,9 @@ public class DAOTest {
         Assert.assertEquals(expected.getId(), actual.getId());
         Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getType(), actual.getType());
-        Assert.assertEquals(expected.getWeight(), actual.getWeight(), 0.0000001);
-        Assert.assertEquals(expected.getPrice(), actual.getPrice(), 0.0000001);
-        Assert.assertEquals(expected.getClarity(), actual.getClarity(), 0.0000001);
+        Assert.assertEquals(expected.getWeight(), actual.getWeight(), 0);
+        Assert.assertEquals(expected.getPrice(), actual.getPrice(), 0);
+        Assert.assertEquals(expected.getClarity(), actual.getClarity(), 0);
         Assert.assertEquals(expected.getStock(), actual.getStock());
         Assert.assertEquals(expected.getColour(), actual.getColour());
     }
@@ -150,9 +150,9 @@ public class DAOTest {
         Assert.assertEquals(expected.getId(), actual.getId());
         Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getType(), actual.getType());
-        Assert.assertEquals(expected.getWeight(), actual.getWeight(), 0.0000001);
-        Assert.assertEquals(expected.getPrice(), actual.getPrice(), 0.0000001);
-        Assert.assertEquals(expected.getClarity(), actual.getClarity(), 0.0000001);
+        Assert.assertEquals(expected.getWeight(), actual.getWeight(), 0);
+        Assert.assertEquals(expected.getPrice(), actual.getPrice(), 0);
+        Assert.assertEquals(expected.getClarity(), actual.getClarity(), 0);
         Assert.assertEquals(expected.getStock(), actual.getStock());
         Assert.assertEquals(expected.getColour(), actual.getColour());
     }
@@ -183,9 +183,9 @@ public class DAOTest {
                 Assert.assertEquals(expected.get(i).getId(), actual.get(i).getId());
                 Assert.assertEquals(expected.get(i).getName(), actual.get(i).getName());
                 Assert.assertEquals(expected.get(i).getType(), actual.get(i).getType());
-                Assert.assertEquals(expected.get(i).getWeight(), actual.get(i).getWeight(), 0.0000001);
-                Assert.assertEquals(expected.get(i).getPrice(), actual.get(i).getPrice(), 0.0000001);
-                Assert.assertEquals(expected.get(i).getClarity(), actual.get(i).getClarity(), 0.0000001);
+                Assert.assertEquals(expected.get(i).getWeight(), actual.get(i).getWeight(), 0);
+                Assert.assertEquals(expected.get(i).getPrice(), actual.get(i).getPrice(), 0);
+                Assert.assertEquals(expected.get(i).getClarity(), actual.get(i).getClarity(), 0);
                 Assert.assertEquals(expected.get(i).getStock(), actual.get(i).getStock());
                 Assert.assertEquals(expected.get(i).getColour(), actual.get(i).getColour());
             }
