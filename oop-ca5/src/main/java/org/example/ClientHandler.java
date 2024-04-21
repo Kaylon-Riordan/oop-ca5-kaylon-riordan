@@ -1,10 +1,11 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Anastasia McCormac (Unless specified otherwise).
@@ -121,6 +122,10 @@ public class ClientHandler implements Runnable {
 
             try {
 
+                // Set scope of list of ImageFiles
+                List<String> imageFiles = null;
+                List<String> fileNames = new ArrayList<>();
+
                 while ((request = in.readLine()) != null) {
 
                     // Decompose response to separate vars.
@@ -148,7 +153,7 @@ public class ClientHandler implements Runnable {
                         int newId = dao.getAutoGenId();
                         Gem newGem = JsonConverter.jsonStringToGem(requestComp[1]);
 
-                        if(dao.insertGem(newGem) != 0) { // Success
+                        if (dao.insertGem(newGem) != 0) { // Success
                             // Return the newly created gem as stored in the database
                             out.println(JsonConverter.gemToJsonString(dao.getGemByID(newId)));
                         } else { // Fail
@@ -165,9 +170,42 @@ public class ClientHandler implements Runnable {
                         out.println("Deleted Successfully");
                     }
 
-                    // TODO Feature 13 - Get Images List.
+                    // Feature 13 - Get Images List.
                     else if (requestComp[0].equals("ImageList")) {
+                        // https://stackoverflow.com/questions/14830313/retrieving-a-list-from-a-java-util-stream-stream-in-java-8
+                        imageFiles = Files.list(Paths.get("images/")) // Get all the files and directories in the inputted directory
+                                // Run toString on each entry
+                                .map(Object::toString)
+                                // Filter the paths for image files only
+                                .filter(s -> s.endsWith(".jpg") || s.endsWith(".jpeg") || s.endsWith(".png"))
+                                // Convert into a list
+                                .toList();
 
+                        // Reset fileNames
+                        fileNames.clear();
+
+                        // Populate fileNames by removing prefix "images\" from each string
+                        imageFiles.forEach(s -> fileNames.add(s.substring(7)));
+
+                        out.println(JsonConverter.stringListtoJsonString(fileNames));
+                    }
+
+                    // Feature 13 continued.
+                    else if (requestComp[0].equals("ImageDownload")) {
+                        String fileName = requestComp[1];
+                        int index = fileNames.indexOf(fileName);
+
+                        System.out.println(fileNames);
+                        System.out.println(fileName);
+                        System.out.println(index);
+
+                        if(index == -1) { // Not found
+                            out.println(fileName + " not found.");
+                        } else {
+                            out.println(fileName + " found.");
+                            // Get file directory from imageFiles
+                            sendImage(clientSocket, imageFiles.get(index));
+                        }
                     }
 
                     // Feature 14 Exit
@@ -202,5 +240,34 @@ public class ClientHandler implements Runnable {
         }
 
         System.out.println("Client with ID " + clientID + " is terminating.");
+    }
+
+    // Initialise a data output stream and send a file.
+    //https://github.com/logued/oop-client-server-socket-image/blob/master/src/main/java/org/example/Client_Main.java
+    private void sendImage(Socket s, String path) throws IOException {
+        DataOutputStream dataOutput = new DataOutputStream((s.getOutputStream()));
+        int bytes = 0; // Chunks of 8 bits
+
+        // Open the file
+        File image = new File(path);
+        FileInputStream fInput = new FileInputStream(image);
+
+        // Send the length of the image to the client
+        dataOutput.writeLong(image.length());
+
+        // Create a buffer of 4 kilobytes. One kilobyte is 1024 bytes.
+        byte[] buffer = new byte[4 * 1024];
+
+        System.out.println("Entering");
+        // Read in the file in chunks of 4 kilobytes until the buffer is full or reached EOF
+        while ((bytes = fInput.read(buffer)) != -1) {
+            // Send buffer contents along with number of bytes
+            dataOutput.write(buffer, 0, bytes);
+            dataOutput.flush();
+        }
+        System.out.println("Leaving");
+
+        // Complete, now close the file
+        fInput.close();
     }
 }

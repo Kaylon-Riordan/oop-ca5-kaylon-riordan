@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JsonConverter {
@@ -20,6 +19,7 @@ public class JsonConverter {
     }
     // Feature 8 - Convert Entity to a JSON String
     // e.g. String playerToJson( List<Player> list )
+
     /**
      * Author: Ben Mc Keever
      * Method to convert gem to json string.
@@ -27,6 +27,22 @@ public class JsonConverter {
      */
     public static String gemToJsonString(Gem g) {
         return new Gson().toJson(g);
+    }
+
+    /**
+     * Author: Ben Mc Keever
+     * Convert string list to Json String.
+     *
+     */
+    public static String stringListtoJsonString(List<String> list) {
+        return new Gson().toJson(list);
+    }
+
+    public static List<String> jsonStringToStringList(String s) {
+        // https://stackoverflow.com/questions/18544133/parsing-json-array-into-java-util-list-with-gson
+        Type listType = new TypeToken<List<String>>() {}.getType();
+
+        return new Gson().fromJson(s, listType);
     }
 
     /**

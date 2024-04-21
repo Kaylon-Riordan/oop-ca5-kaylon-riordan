@@ -2,13 +2,9 @@ package org.example;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -84,7 +80,8 @@ public class AppClient {
                     else if (responseComp[0].equals("0")) {
 
                         System.out.println("\nInvalid Login, try again? Y/N.");
-                        responseComp[0] = keyboard.next();
+                        responseComp[0] = keyboard.nextLine();
+                        // nextLine prevents bug where program asks for password and user simultaneously - Ben
                     }
 
                     // If user logs in or if they chose to not try again, break loop and continue program.
@@ -158,7 +155,7 @@ public class AppClient {
                             if(response.contains("Failed")) {
                                 System.out.println(response);
                             } else { // Success
-                                Gem gem = JsonConverter.jsonStringToGem(in.readLine());
+                                Gem gem = JsonConverter.jsonStringToGem(response);
                                 displayGem(gem);
                             }
                         }
@@ -166,19 +163,39 @@ public class AppClient {
                         // Feature 12 - Delete an Entity by ID.
                         else if (Integer.parseInt(request) == 4) {
 
-                            request = "AddGem;";
+                            request = "DeleteGemID;";
                             System.out.print("Type the ID of the gem you'd like to remove: ");
                             request += keyboard.next();
 
                             // compile protocol by "DeleteGemID;<status>;<IDtoDelete>; then send to server.
                             //  and await request, processing the return.
                             out.println(request);
+
+                            System.out.println(in.readLine());
                         }
 
                         // Feature 13 - Get Images List.
                         else if (Integer.parseInt(request) == 5) {
+                            request = "ImageList;";
+                            out.println(request);
 
+                            List<String> fileNames = JsonConverter.jsonStringToStringList(in.readLine());
 
+                            for (int i = 0; i < fileNames.size(); i++) {
+                                System.out.print(i + 1);
+                                System.out.print(": " + fileNames.get(i) + "\n");
+                            }
+                            request = "ImageDownload;";
+                            System.out.print("\nType the filename and extension of the image you'd like to download (e.g: img.jpg): ");
+                            request += keyboard.next();
+
+                            out.println(request);
+
+                            if (in.readLine().contains("not")) {
+                                System.out.println("File not found.");
+                            } else {
+                                receiveImage(socket);
+                            }
                         }
 
                         // Feature 14 Exit
@@ -273,5 +290,37 @@ public class AppClient {
             details = String.format(template, gem.getId(), gem.getName(), gem.getType(), gem.getWeight(), gem.getPrice(), gem.getClarity(), gem.getStock(), gem.getColour());
             System.out.println(details);
         }
+    }
+
+    // https://github.com/logued/oop-client-server-socket-image/blob/master/src/main/java/org/example/Server.java
+    private void receiveImage(Socket s) throws IOException {
+        DataInputStream dataInput = new DataInputStream(s.getInputStream());
+
+        FileOutputStream fOutput = new FileOutputStream("download.jpg");
+
+        // Read the file size left
+        long bytes_remaining = dataInput.readLong();
+
+        // Create a bugger for the incoming bytes
+        byte[] buffer = new byte[4 * 1024];
+
+        int bytes_read = 0; // Total bytes read
+
+        // Read the bytes in chunks
+        while (bytes_remaining > 0 && (bytes_read =
+                dataInput.read(buffer, 0, (int)Math.min(buffer.length, bytes_remaining))) != -1) {
+            // Above read bytes to fill buffer.
+            // Either read the buffer length or the remaining bytes of the file depending on what's smaller
+
+            // Write the buffer to a local file
+            fOutput.write(buffer, 0 , bytes_read);
+
+            // Bytes remaining decreases by bytes read until it's 0 or less
+            bytes_remaining -= bytes_read;
+        }
+
+        System.out.println("File received.");
+        fOutput.close();
+
     }
 }
